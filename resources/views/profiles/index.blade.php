@@ -3,18 +3,26 @@
 @section('content')
 <div class="container">
   <div class="row">
-    <div class="col-s3 p-5">
-      <img class="rounded-circle" src="https://instagram.faus1-1.fna.fbcdn.net/vp/a721506f656427052aec885da980c22a/5D655738/t51.2885-19/s150x150/22709172_932712323559405_7810049005848625152_n.jpg?_nc_ht=instagram.faus1-1.fna.fbcdn.net">
+    <div class="col-3 p-5">
+      <img class="w-100 rounded-circle" src="{{ $user->profile->profileImage() }}">
     </div>
     <div class="col-s9">
       <div class="d-flex justify-content-between align-items-baseline">
-        <div><h1>{{ $user->username }}</h1></div>
-        <a href="">Add new post</a>
+        <div class="d-flex align-items-center pb-3">
+          <div class="h4">{{ $user->username }}</div>
+          <follow-button follows="{{ $follows }}" user-id="{{ $user->id }}"></follow-button>
+        </div>
+        @can('update', $user->profile)
+          <a href="/create/">Add new post</a>
+        @endcan
       </div>
+      @can('update', $user->profile)
+        <a href="/profile/{{ $user->id }}/edit">Edit Profile</a>
+      @endcan
       <div class="d-flex">
-        <div class="pr-5"><strong>153</strong> posts</div>
-        <div class="pr-5"><strong>23K</strong> followers</div>
-        <div class="pr-5"><strong>212</strong> following</div>
+        <div class="pr-5"><strong>{{ $postCount }}</strong> posts</div>
+        <div class="pr-5"><strong>{{ $followersCount }}</strong> followers</div>
+        <div class="pr-5"><strong>{{ $followingCount }}</strong> following</div>
       </div>
       <div class="pt-4 font-weight-bold">{{ $user->profile->title }}</div>
       <div class="pt-4">{{ $user->profile->description }}</div>
@@ -22,15 +30,13 @@
     </div>
   </div>
   <div class="row pt-5">
-    <div class="col-4">
-      <img class="w-100" src="https://instagram.faus1-1.fna.fbcdn.net/vp/8c6e5683cf09ca92164829eda470d20b/5D671E6E/t51.2885-15/e35/c31.0.557.557a/59940621_2476471699031065_8450367174777319180_n.jpg?_nc_ht=instagram.faus1-1.fna.fbcdn.net" alt="">
-    </div>
-    <div class="col-4">
-      <img class="w-100" src="https://instagram.faus1-1.fna.fbcdn.net/vp/277f3b5c126c0f728407f6547919b2f3/5D6240BD/t51.2885-15/sh0.08/e35/c0.104.921.921/s640x640/59781813_2308953272503125_6520484961724886162_n.jpg?_nc_ht=instagram.faus1-1.fna.fbcdn.net" alt="">
-    </div>
-    <div class="col-4">
-      <img class="w-100" src="https://instagram.faus1-1.fna.fbcdn.net/vp/40c185898cb01853d13ee942eeaa76f1/5D7E2766/t51.2885-15/sh0.08/e35/c1.0.747.747/s640x640/60581454_869432733405043_458079974647968282_n.jpg?_nc_ht=instagram.faus1-1.fna.fbcdn.net" alt="">
-    </div>
+    @foreach($user->posts as $post)
+      <div class="col-4 pb-4">
+        <a href="/p/{{ $post->id }}">
+          <img class="w-100" src="/storage/{{ $post->image }}">
+        </a>
+      </div>
+    @endforeach
   </div>
 </div>
 @endsection

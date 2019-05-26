@@ -23,7 +23,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand d-flex" href="{{ url('/') }}">
+                <a class="navbar-brand d-flex" href="{{ url('/profile/1') }}">
                     <div><img class="pr-3" style="height: 22px; border-right: 1px solid #333" src="/svg/logo.png"></div>
                     <div class="pl-3 pt-1">instagram</div>
                 </a>

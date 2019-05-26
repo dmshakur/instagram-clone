@@ -12,11 +12,11 @@
         <label for="caption" class="col-md-4 col-form-label">Post Caption</label>
 
           <input id="caption"
-            type="caption"
+            type="text"
             class="form-control @error('caption') is-invalid @enderror"
             name="caption"
             value="{{ old('caption') }}"
-            required autocomplete="caption">
+            autocomplete="caption" autofocus>
 
           @error('caption')
             <strong>{{ $message }}</strong>
